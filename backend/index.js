@@ -59,7 +59,7 @@ app.use(cors());
 app.use(express.json());
 
 // gRPC setup
-const PROTO_PATH = './questions.proto';
+const PROTO_PATH = './public/questions.proto';
 const packageDefinition = protoLoader.loadSync(PROTO_PATH, {
   keepCase: true,
   longs: String,
