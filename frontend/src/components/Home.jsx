@@ -13,7 +13,7 @@ function Home() {
   useEffect(() => {
     // Fetch all questions
     axios
-      .get("http://localhost:4000/api/questions")
+      .get("http://speakx-quest-search-4bqt.vercel.app/api/questions")
       .then((response) => {
         setQuestions(response.data);
       })
@@ -23,7 +23,7 @@ function Home() {
 
     // Fetch unique question types
     axios
-      .get("http://localhost:4000/api/types")
+      .get("http://speakx-quest-search-4bqt.vercel.app/api/types")
       .then((response) => {
         setTypes(response.data);
       })
