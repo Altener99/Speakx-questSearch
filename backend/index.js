@@ -8,6 +8,11 @@ app.use(cors());
 app.use(express.json());
 
 // REST API Endpoint: Get all questions
+
+app.get('/', (req, res) => {
+  res.send('Speakx');
+});
+
 app.get('/api/questions', (req, res) => {
   client.GetQuestions({}, (error, response) => {
     if (error) {
