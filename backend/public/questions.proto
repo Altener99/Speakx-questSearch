@@ -1,0 +1,31 @@
+syntax = "proto3";
+
+package questions;
+
+// Define the QuestionService
+service QuestionService {
+    // Fetch a list of all questions
+    rpc GetQuestions (Empty) returns (QuestionList);
+
+    // Fetch a list of unique question types
+    rpc GetUniqueQuestionTypes (Empty) returns (TypeList);
+}
+
+// Empty message for requests that don't require parameters
+message Empty {}
+
+// Represents a single question
+message Question {
+    string title = 1;
+    string type = 2;
+}
+
+// Represents a list of questions
+message QuestionList {
+    repeated Question questions = 1;
+}
+
+// Represents a list of unique types
+message TypeList {
+    repeated string types = 1;
+}
