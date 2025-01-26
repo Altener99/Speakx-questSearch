@@ -1,0 +1,103 @@
+
+Speakx QuestSearch
+
+Project Overview
+
+This project is a quest search application where users can fetch and view questions with various types. The backend uses gRPC to fetch data from the MongoDB database, and the frontend communicates with the backend via REST APIs. The app consists of two main parts: the frontend (React app) and the backend (Express app with gRPC service).
+
+ Prerequisites
+
+Before you start, make sure you have the following installed:
+
+ Node.js (preferably the latest stable version)
+ npm (Node Package Manager)
+
+ Getting Started
+
+Follow these steps to get the project up and running on your local machine.
+
+ 1. Clone the repository
+
+Clone the project to your local machine by running the following command:
+
+
+git clone <yourrepositoryurl>
+cd SpeakxquestSearch
+
+
+ 2. Open the project in your code editor
+
+Open the project folder in your preferred code editor (e.g., VSCode).
+
+ 3. Install Dependencies
+
+You'll need to install the required dependencies for both the frontend and backend.
+
+ Open two terminals:
+
+1. Frontend Terminal: Navigate to the frontend folder.
+2. Backend Terminal: Navigate to the backend folder.
+
+In both terminals, run the following command to install dependencies:
+
+
+npm install
+
+
+ 4. Start the Application
+
+Now, you’re ready to start the application.
+
+ In the Frontend Terminal:
+
+Run the following command to start the frontend:
+
+npm run dev
+
+
+This will launch the React app and start the development server. The frontend will be available at [http://localhost:3000](http://localhost:3000).
+
+ In the Backend Terminal:
+
+Run the following command to start the backend server:
+
+
+node index.js
+
+This will start the Express server with gRPC, and the backend will be available on port 4000 for REST API calls and port 50051 for gRPC services.
+
+ 5. Open the Frontend Application
+
+Once both servers are running, open your browser and visit [http://localhost:3000](http://localhost:3000) to interact with the frontend. Any request made from the frontend will interact with the backend API.
+
+ 6. Debugging and Logs
+
+ The frontend terminal will show logs for the React development server.
+ The backend terminal will show logs for any API requests and gRPCrelated activities.
+
+ Folder Structure
+
+
+/backend
+   index.js (Backend server and gRPC configuration)
+   questions.proto (Protocol file for gRPC)
+   /models (MongoDB models)
+   /config (Database configuration)
+
+  /frontend
+     /src
+       /components (React components)
+       /services (Services for API calls)
+     package.json (Frontend dependencies)
+     .env (Environment variables for frontend)
+
+README.md
+
+
+ Technologies Used
+
+ Frontend: React, Tailwind CSS
+ Backend: Node.js, Express, gRPC, MongoDB
+ Protocol: Protocol Buffers (for gRPC communication)
+
+ Troubleshooting
