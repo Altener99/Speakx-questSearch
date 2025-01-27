@@ -4,14 +4,13 @@ import logo from "./main-logo@3x.webp";
 
 function Home() {
   const [query, setQuery] = useState("");
-  const [filterType, setFilterType] = useState(""); // Filter by type
-  const [types, setTypes] = useState([]); // Store unique question types
+  const [filterType, setFilterType] = useState(""); 
+  const [types, setTypes] = useState([]); 
   const [currentPage, setCurrentPage] = useState(1);
   const questionsPerPage = 10;
   const [questions, setQuestions] = useState([]);
 
   useEffect(() => {
-    // Fetch all questions
     axios
       .get("http://localhost:4000/api/questions")
       .then((response) => {
@@ -21,7 +20,6 @@ function Home() {
         console.error("Error fetching questions:", error);
       });
 
-    // Fetch unique question types
     axios
       .get("http://localhost:4000/api/types")
       .then((response) => {

@@ -1,46 +1,4 @@
-// require('dotenv').config(); // Ensure environment variables are loaded
-// const express = require('express');
-// const cors = require('cors');
-// const client = require('./grpcClient');
-
-// const app = express();
-// app.use(cors());
-// app.use(express.json());
-
-// // REST API Endpoint: Get all questions
-
-// app.get('/', (req, res) => {
-//   res.send('Speakx');
-// });
-
-// app.get('/api/questions', (req, res) => {
-//   client.GetQuestions({}, (error, response) => {
-//     if (error) {
-//       console.error('Error fetching questions:', error);
-//       return res.status(500).send('Internal Server Error');
-//     }
-//     res.json(response.questions);
-//   });
-// });
-
-// // REST API Endpoint: Get unique question types
-// app.get('/api/types', (req, res) => {
-//   client.GetUniqueQuestionTypes({}, (error, response) => {
-//     if (error) {
-//       console.error('Error fetching unique types:', error);
-//       return res.status(500).send('Internal Server Error');
-//     }
-//     res.json(response.types); // Assuming `types` is the field in gRPC response
-//   });
-// });
-
-// const PORT = 4000;
-// app.listen(PORT, () => {
-//   console.log(`REST API server running on http://localhost:${PORT}`);
-// });
-
-
-require('dotenv').config(); // Ensure environment variables are loaded
+require('dotenv').config(); 
 const grpc = require('@grpc/grpc-js');
 const protoLoader = require('@grpc/proto-loader');
 const express = require('express');
@@ -50,15 +8,15 @@ const Questions = require('./models/questions');
 const Database = require('./config/database');
 const grpcClient = require('./grpcClient');
 
-// Initialize MongoDB connection
+
 Database();
 
-// Express app setup
+
 const app = express();
 app.use(cors());
 app.use(express.json());
 
-// gRPC setup
+
 const PROTO_PATH = './public/questions.proto';
 const packageDefinition = protoLoader.loadSync(PROTO_PATH, {
   keepCase: true,
@@ -69,7 +27,7 @@ const packageDefinition = protoLoader.loadSync(PROTO_PATH, {
 });
 const questionProto = grpc.loadPackageDefinition(packageDefinition).questions;
 
-// Fetch all questions from the database
+
 const getQuestions = async (call, callback) => {
   try {
     const questions = await Questions.find({});
@@ -88,7 +46,7 @@ const getQuestions = async (call, callback) => {
   }
 };
 
-// Fetch unique question types
+
 const getUniqueQuestionTypes = async (call, callback) => {
   try {
     const questions = await Questions.find({}).select('type');
@@ -106,10 +64,10 @@ const getUniqueQuestionTypes = async (call, callback) => {
   }
 };
 
-// gRPC server setup
+
 const serverOptions = {
-  'grpc.max_receive_message_length': 10 * 1024 * 1024, // 10 MB
-  'grpc.max_send_message_length': 10 * 1024 * 1024,    // 10 MB
+  'grpc.max_receive_message_length': 10 * 1024 * 1024, 
+  'grpc.max_send_message_length': 10 * 1024 * 1024,    
 };
 
 const grpcServer = new grpc.Server(serverOptions);
@@ -118,12 +76,12 @@ grpcServer.addService(questionProto.QuestionService.service, {
   GetUniqueQuestionTypes: getUniqueQuestionTypes,
 });
 
-// Express API Endpoints
+
 app.get('/', (req, res) => {
   res.send('Speakx API');
 });
 
-// REST API Endpoint: Get all questions
+
 app.get('/api/questions', (req, res) => {
   grpcClient.GetQuestions({}, (error, response) => {
     if (error) {
@@ -134,18 +92,17 @@ app.get('/api/questions', (req, res) => {
   });
 });
 
-// REST API Endpoint: Get unique question types
+
 app.get('/api/types', (req, res) => {
   grpcClient.GetUniqueQuestionTypes({}, (error, response) => {
     if (error) {
       console.error('Error fetching unique types:', error);
       return res.status(500).send('Internal Server Error');
     }
-    res.json(response.types); // Assuming `types` is the field in gRPC response
+    res.json(response.types); 
   });
 });
 
-// Start the gRPC server
 const grpcPort = 50051;
 grpcServer.bindAsync(`0.0.0.0:${grpcPort}`, grpc.ServerCredentials.createInsecure(), (err, port) => {
   if (err) {
@@ -156,7 +113,6 @@ grpcServer.bindAsync(`0.0.0.0:${grpcPort}`, grpc.ServerCredentials.createInsecur
   grpcServer.start();
 });
 
-// Start the Express server
 const expressPort = process.env.PORT || 4000;
 app.listen(expressPort, () => {
   console.log(`Express API server running on http://localhost:${expressPort}`);

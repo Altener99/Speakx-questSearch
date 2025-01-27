@@ -12,7 +12,6 @@ const packageDefinition = protoLoader.loadSync(PROTO_PATH, {
 
 const questionProto = grpc.loadPackageDefinition(packageDefinition).questions;
 
-// Connect to the gRPC Server
 const client = new questionProto.QuestionService(
   'localhost:50051',
   grpc.credentials.createInsecure(),

@@ -17,7 +17,6 @@ const packageDefinition = protoLoader.loadSync(PROTO_PATH, {
 });
 const questionProto = grpc.loadPackageDefinition(packageDefinition).questions;
 
-// Fetch all questions
 const getQuestions = async (call, callback) => {
   try {
     const questions = await Questions.find({});
@@ -36,7 +35,6 @@ const getQuestions = async (call, callback) => {
   }
 };
 
-// Fetch unique question types
 const getUniqueQuestionTypes = async (call, callback) => {
   try {
     const questions = await Questions.find({}).select('type');
@@ -54,13 +52,12 @@ const getUniqueQuestionTypes = async (call, callback) => {
   }
 };
 
-// Server options
 const serverOptions = {
-  'grpc.max_receive_message_length': 10 * 1024 * 1024, // 10 MB
-  'grpc.max_send_message_length': 10 * 1024 * 1024,    // 10 MB
+  'grpc.max_receive_message_length': 10 * 1024 * 1024,
+  'grpc.max_send_message_length': 10 * 1024 * 1024,   
 };
 
-// Create gRPC server
+
 const server = new grpc.Server(serverOptions);
 server.addService(questionProto.QuestionService.service, {
   GetQuestions: getQuestions,

@@ -25,15 +25,13 @@ export async function getQuestions() {
     
     const request = GetQuestionsRequest.create({});
 
-    // Initialize the gRPC Web client
-    const client = new QuestionServiceClient('http://localhost:8080', null, null); // Update with your server URL
+    const client = new QuestionServiceClient('http://localhost:8080', null, null); 
 
     client.getQuestions(request, {}, (err, response) => {
       if (err) {
         console.error('Error fetching questions:', err);
       } else {
         console.log('Received questions:', response);
-        // Handle your response here (e.g., map to display questions)
       }
     });
   } catch (err) {
